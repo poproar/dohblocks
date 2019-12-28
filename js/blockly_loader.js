@@ -1,7 +1,7 @@
 var blocklyArea = document.getElementById('blocklyArea');
 var blocklyDiv = document.getElementById('blocklyDiv');
 var demoWorkspace = Blockly.inject(blocklyDiv,
-    {media: '../../media/',
+    {media: '',
         toolbox: document.getElementById('toolbox')});
 var onresize = function(e) {
     // Compute the absolute coordinates and dimensions of blocklyArea.
