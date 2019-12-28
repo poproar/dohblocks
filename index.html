@@ -6,19 +6,70 @@
 <title>Blockly Empty</title>
 <script type="text/javascript" src="head.js"></script>
 <!-- <script src="https://unpkg.com/blockly/blockly.min.js"></script> -->
-<link rel="stylesheet" type="text/css" href="blockly.css">
+<!-- <link rel="stylesheet" type="text/css" href="blockly.css"> -->
 
 <!-- Materialize -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 </head>
 <body>
-<div id="blocklyArea"></div>
+
+
+<nav class="nav-extended light-green">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo"><i class="material-icons right">android</i>&emsp;BarnaBlocks</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li class="right"><a href="sass.html"><i class="material-icons">search</i></a></li>
+        <li class="right"><a href="badges.html"><i class="material-icons">view_module</i></a></liclass="right">
+        <li class="right"><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
+        <li class="right"><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
+      </ul>
+    </div>
+    <div class="nav-content">
+      <ul class="tabs tabs-transparent">
+        <li class="tab"><a  class="active" href="#test1"><i class="material-icons">extension</i>Blocks</a></li>
+        <li class="tab"><a href="#test2">Code</a></li>
+        <li class="tab"><a href="#test4">HEX</a></li>
+    </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="sass.html">Sass</a></li>
+    <li><a href="badges.html">Components</a></li>
+    <li><a href="collapsible.html">JavaScript</a></li>
+  </ul>
+
+  <div id="test1" class="col s12">
+    <div id="blocklyArea"></div>
+
+
+  </div>
+  <div id="test2" class="col s12">Test 2</div>
+  <div id="test4" class="col s12">Test 4</div>
+
+  <script>
+    var el = document.querySelector('.tabs');
+    var options = {};
+    var instance = M.Tabs.init(el, options);
+</script>
+
+<div class="info"></div>
+
 <div id="blocklyDiv" style="position: absolute"></div>
-
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-
+    <block type="controls_if"></block>
+    <block type="logic_compare"></block>
+    <block type="controls_repeat_ext"></block>
+    <block type="math_number">
+      <field name="NUM">123</field>
+    </block>
+    <block type="math_arithmetic"></block>
+    <block type="text"></block>
+    <block type="text_print"></block>
 </xml>
 
 <script src="/js/blockly_loader.js"></script>
