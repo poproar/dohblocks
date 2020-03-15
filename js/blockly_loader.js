@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 var tabs = document.querySelector('.tabs');
 var tabOptions = { onShow: codeShow };
-var mTabs = M.Tabs.init(el, tabOptions);
+var mTabs = M.Tabs.init(tabs, tabOptions);
 
 
 var workspace = Blockly.inject('blocklyDiv',

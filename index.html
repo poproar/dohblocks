@@ -11,6 +11,13 @@
   <script type="text/javascript" src="/js/arduino_compressed.js"></script>
   <script type="text/javascript" src="/js/javascript_compressed.js"></script>
   <script type="text/javascript" src="/js/msg/js/en.js"></script>
+
+  <!-- Materialize -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
   <style>
     body {
       display: flex;
@@ -37,12 +44,6 @@
     }
   </style>
 
-  <!-- Materialize -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
 </head>
 
 <body>
@@ -55,9 +56,8 @@
         <ul id="nav-mobile" class="right ">
           <li class=""><a href="works.html" class="tooltipped" data-position="left" data-tooltip="Language"><i
                 class="material-icons">language</i></a></li>
-          <li class=""><a href="works.html"><i class="material-icons">view_module</i></a></li">
-          <li class=""><a href="works.html"><i class="material-icons">refresh</i></a></li>
-          <li class=""><a href="#settings" class="waves-effect waves-light modal-trigger"><i
+          <li class=""><a href="works.html"><i class="material-icons">view_module</i></a></li>
+          <li class=""><a href="#settings" ><i
                 class="material-icons">more_vert</i></a></li>
         </ul>
       </div>
@@ -69,22 +69,6 @@
               data-tooltip="View Arduino code"><i class="material-icons">code</i>Code</a></li>
           <li class="tab"><a href="#xmlTab" class="tooltipped" data-position="right" data-tooltip="View XML code"><i
                 class="material-icons">memory</i>XML</a></li>
-          <li class="tab right">
-            <a href="" class="tooltipped" data-position="bottom" data-tooltip="Start over?"><i
-                class="material-icons">delete</i></a>
-          </li>
-          <li class="tab right">
-            <a href="" class="tooltipped" data-position="bottom" data-tooltip="Copy to clipboard"><i
-                class="material-icons">file_copy</i></a>
-          </li>
-          <li class="tab right">
-            <a href="" class="tooltipped" data-position="bottom" data-tooltip="Upload"><i
-                class="material-icons">cloud_upload</i></a>
-          </li>
-          <li class="tab right">
-            <a href="" class="tooltipped" data-position="bottom" data-tooltip="Download"><i
-                class="material-icons">cloud_download</i></a>
-          </li>
         </ul>
       </div>
     </nav>
@@ -120,17 +104,6 @@
       </div>
     </div>
   </main>
-
-  <div id="settings" class="modal">
-    <div class="modal-content">
-      <h4>Settings</h4>
-      <p></p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancel</a>
-      <a href="#!" class="modal-close waves-effect waves-green btn btn-flat">Save</a>
-    </div>
-  </div>
 
   <footer class="page-footer light-green">
     <div class=" black">
@@ -459,7 +432,7 @@
     <category name="%{BKY_CATFUNCTIONS}" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
   </xml>
 
+  <script src="/js/blockly_loader.js"></script>
 </body>
-<script src="/js/blockly_loader.js"></script>
 
 </html>
