@@ -7,35 +7,31 @@
 <script type="text/javascript" src="/js/blockly_compressed2.js"></script>
 <script type="text/javascript" src="/js/blocks_compressed2.js"></script>
 <script type="text/javascript" src="/js/arduino_compressed2.js"></script>
-<script src="/js/javascript_compressed.js"></script>
 <script type="text/javascript" src="/js/msg/js/en.js"></script>
 <style>
-    html,
 body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  flex-flow: column;
-  height: 100%;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+#blocklyTab{
+  position: relative;
+  width: 100%;
+  height: 80vh;
 }
 
-header {
-  flex: 0 1 auto;
-  /* The above is shorthand for:
-  flex-grow: 0,
-  flex-shrink: 1,
-  flex-basis: auto
-  */
-}
-
-section {
-  flex: 1 1 auto;
-}
-
-footer {
-  flex: 0 1 40px;
-}
-</style>
+#blocklyDiv{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  }
+  </style>
 
 <!-- Materialize -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -48,7 +44,7 @@ footer {
 <header>
 <nav class="nav-extended light-green">
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo hide-on-small-only"><i class="material-icons right">android</i>&emsp;BarnaBlocks</a>
+      <a href="#!" class="brand-logo hide-on-small-only"><i class="material-icons right">category</i>&emsp;BarnaBlocks</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul id="nav-mobile" class="right ">
         <li class=""><a href="works.html"><i class="material-icons">search</i></a></li>
@@ -60,8 +56,8 @@ footer {
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
         <li class="tab"><a  class="active" href="#blocklyTab"><i class="material-icons">extension</i>Blocks</a></li>
-        <li class="tab"><a href="#codeTab">Code</a></li>
-        <li class="tab"><a href="#hexTab">HEX</a></li>
+        <li class="tab"><a href="#codeTab"><i class="material-icons">code</i>Code</a></li>
+        <li class="tab"><a href="#hexTab"><i class="material-icons">memory</i>HEX</a></li>
     </ul>
     </div>
   </nav>
@@ -72,13 +68,27 @@ footer {
     <li><a href="html">JavaScript</a></li>
   </ul>
 </header>
+<main>
+  <div id="blocklyTab" class="col s12"> <div id="blocklyDiv"></div></div>
+  <div id="codeTab" class="col s12"><div class="container"><pre>Code will show here</pre></div></div>
+  <div id="hexTab" class="col s12"><div class="container"><pre>Hex</pre></div></div>
+</main>
 
-<section>
-  <div id="blocklyTab" class="col s12">Blocks</div>
-  <div id="codeTab" class="col s12">Code will display here</div>
-  <div id="hexTab" class="col s12">Hex</div>
-</section>
-<footer class="info"></footer>
+<footer class="page-footer light-green">
+  <div class=" black">
+    <div class="row">
+      <div class="col l6 s12">
+        <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+    © 2014 Copyright Text
+    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+    </div>
+  </div>
+</footer>
 
 <xml id="toolbox" style="display: none">
     <category name="category_inout" id="category_inout" colour="210">
@@ -118,6 +128,6 @@ footer {
 </category>
 </xml>
 
-<script src="/js/blockly_loader.js"></script>
 </body>
+<script src="/js/blockly_loader.js"></script>
 </html>
