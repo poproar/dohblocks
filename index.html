@@ -17,14 +17,17 @@
       min-height: 100vh;
       flex-direction: column;
     }
+
     main {
       flex: 1 0 auto;
     }
+
     #blocklyTab {
       position: relative;
       width: 100%;
       height: 80vh;
     }
+
     #blocklyDiv {
       position: absolute;
       top: 0;
@@ -41,28 +44,47 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 </head>
+
 <body>
   <header>
     <nav class="nav-extended light-green">
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo hide-on-small-only"><i
-            class="material-icons right">category</i>&emsp;BarnaBlocks</a>
+        <a href="#!" class="brand-logo hide-on-small-only"><i class="material-icons right">category</i>&emsp;Block
+          Materials</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right ">
-          <li class=""><a href="works.html"><i class="material-icons">search</i></a></li>
-          <li class=""><a href="works.html"><i class="material-icons">view_module</i></a></liclass="right">
+          <li class=""><a href="works.html" class="tooltipped" data-position="left" data-tooltip="Language"><i
+                class="material-icons">language</i></a></li>
+          <li class=""><a href="works.html"><i class="material-icons">view_module</i></a></li">
           <li class=""><a href="works.html"><i class="material-icons">refresh</i></a></li>
-          <li class=""><a href="works.html"><i class="material-icons">more_vert</i></a></li>
+          <li class=""><a href="#settings" class="waves-effect waves-light modal-trigger"><i
+                class="material-icons">more_vert</i></a></li>
         </ul>
       </div>
       <div class="nav-content">
         <ul class="tabs tabs-transparent">
-          <li class="tab"><a class="active" href="#blocklyTab" class="tooltipped" data-position="bottom"
+          <li class="tab"><a class="active" href="#blocklyTab" class="tooltipped" data-position="top"
               data-tooltip="Blocks"><i class="material-icons">extension</i>Blocks</a></li>
           <li class="tab"><a href="#codeTab" class="tooltipped" data-position="bottom"
               data-tooltip="View Arduino code"><i class="material-icons">code</i>Code</a></li>
-          <li class="tab"><a href="#hexTab" class="tooltipped" data-position="right" data-tooltip="View HEX code"><i
-                class="material-icons">memory</i>HEX</a></li>
+          <li class="tab"><a href="#xmlTab" class="tooltipped" data-position="right" data-tooltip="View XML code"><i
+                class="material-icons">memory</i>XML</a></li>
+          <li class="tab right">
+            <a href="" class="tooltipped" data-position="bottom" data-tooltip="Start over?"><i
+                class="material-icons">delete</i></a>
+          </li>
+          <li class="tab right">
+            <a href="" class="tooltipped" data-position="bottom" data-tooltip="Copy to clipboard"><i
+                class="material-icons">file_copy</i></a>
+          </li>
+          <li class="tab right">
+            <a href="" class="tooltipped" data-position="bottom" data-tooltip="Upload"><i
+                class="material-icons">cloud_upload</i></a>
+          </li>
+          <li class="tab right">
+            <a href="" class="tooltipped" data-position="bottom" data-tooltip="Download"><i
+                class="material-icons">cloud_download</i></a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -73,14 +95,14 @@
       <li><a href="html">JavaScript</a></li>
     </ul>
   </header>
-  
+
   <main>
     <div id="blocklyTab" class="col s12">
       <div id="blocklyDiv"></div>
     </div>
     <div id="codeTab" class="col s12">
       <div class="container">
-        <pre id="content_javascript" class="content prettyprint lang-cplusplus">
+        <pre id="content_javascript" class="content prettyprint lang-cpp">
           import &lt;code>
           int i = 0;
           void setup() {
@@ -92,12 +114,23 @@
         </pre>
       </div>
     </div>
-    <div id="hexTab" class="col s12">
+    <div id="xmlTab" class="col s12">
       <div class="container">
-        <pre>Hex</pre>
+        <pre id="content_xml" class="content prettyprint lang-xml">XML</pre>
       </div>
     </div>
   </main>
+
+  <div id="settings" class="modal">
+    <div class="modal-content">
+      <h4>Settings</h4>
+      <p></p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancel</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn btn-flat">Save</a>
+    </div>
+  </div>
 
   <footer class="page-footer light-green">
     <div class=" black">

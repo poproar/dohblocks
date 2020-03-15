@@ -1,18 +1,21 @@
-// sidenav
 document.addEventListener('DOMContentLoaded', function () {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems, {});
-});
-// tabs
-var el = document.querySelector('.tabs');
-var options = { onShow: codeShow };
-var instance = M.Tabs.init(el, options);
+  var sidenav = document.querySelectorAll('.sidenav');
+  var mSidenav = M.Sidenav.init(sidenav, {});
 
+  var tooltips = document.querySelectorAll('.tooltipped');
+  var mTooltip = M.Tooltip.init(tooltips, {});
 
-document.addEventListener('DOMContentLoaded', function () {
-  var tips = document.querySelectorAll('.tooltipped');
-  var instances = M.Tooltip.init(tips, {});
+  var selects = document.querySelectorAll('select');
+  var mFormSelect = M.FormSelect.init(selects, {});
+
+  var modals = document.querySelectorAll('.modal');
+  var mModals = M.Modal.init(modals, {});
 });
+
+var tabs = document.querySelector('.tabs');
+var tabOptions = { onShow: codeShow };
+var mTabs = M.Tabs.init(el, tabOptions);
+
 
 var workspace = Blockly.inject('blocklyDiv',
   {
@@ -46,11 +49,17 @@ function codeShow(tabObj) {
       // Remove the 'prettyprinted' class, so that Prettify will recalculate.
       content.className = content.className.replace('prettyprinted', '');
     }
-    if (typeof PR == 'object') {
-      PR.prettyPrint();
-    }
+  } else if (tabObj.id == 'xmlTab') {
+    var content = document.getElementById('content_xml');
+    content.textContent = '';
+    var asXML = Blockly.Xml.workspaceToDom(workspace);
+    var xmlText = Blockly.Xml.domToPrettyText(asXML);
+    content.textContent = xmlText;
+    content.className = content.className.replace('prettyprinted', '');
   }
-
+  if (typeof PR == 'object') {
+    PR.prettyPrint();
+  }
 }
 
 function checkAllGeneratorFunctionsDefined(generator) {
