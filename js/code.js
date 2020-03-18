@@ -21,15 +21,6 @@
  */
 'use strict';
 
-Blockly.Msg["MATH_HUE"] = "230";
-Blockly.Msg["LOOPS_HUE"] = "120";
-Blockly.Msg["LISTS_HUE"] = "260";
-Blockly.Msg["LOGIC_HUE"] = "210";
-Blockly.Msg["VARIABLES_HUE"] = "330";
-Blockly.Msg["TEXTS_HUE"] = "160";
-Blockly.Msg["PROCEDURES_HUE"] = "290";
-Blockly.Msg["COLOUR_HUE"] = "20";
-Blockly.Msg["VARIABLES_DYNAMIC_HUE"] = "310";
 
 /**
  * Create a namespace for the application.
@@ -194,18 +185,109 @@ Code.changeLanguage = function() {
  * @param {!Element|string} el Button element or ID thereof.
  * @param {!Function} func Event handler to bind.
  */
-Code.bindClick = function(el, func) {
-  if (typeof el == 'string') {
-    el = document.getElementById(el);
-  }
-  el.addEventListener('click', func, true);
-  el.addEventListener('touchend', func, true);
-};
+// Code.bindClick = function(el, func) {
+//   if (typeof el == 'string') {
+//     el = document.getElementById(el);
+//   }
+//   el.addEventListener('click', func, true);
+//   el.addEventListener('touchend', func, true);
+// };
 /**
  * User's language (e.g. "en").
  * @type {string}
  */
 Code.LANG = Code.getLang();
+
+Code.codeShow = function(tabObj) {
+  if (tabObj.id == 'codeTab') {
+    var content = document.getElementById('content_javascript');
+    content.textContent = '';
+    if (Code.checkAllGeneratorFunctionsDefined(Blockly.JavaScript)) {
+      var code = Blockly.JavaScript.workspaceToCode(Code.workspace);
+      content.textContent = code;
+      // Remove the 'prettyprinted' class, so that Prettify will recalculate.
+      content.className = content.className.replace('prettyprinted', '');
+    }
+  } else if (tabObj.id == 'xmlTab') {
+    var content = document.getElementById('content_xml');
+    content.textContent = '';
+    var asXML = Blockly.Xml.workspaceToDom(Code.workspace);
+    var xmlText = Blockly.Xml.domToPrettyText(asXML);
+    content.textContent = xmlText;
+    content.className = content.className.replace('prettyprinted', '');
+  }
+  if (typeof PR == 'object') {
+    PR.prettyPrint();
+  }
+}
+/**
+ * Populate the currently selected pane with content generated from the blocks.
+ */
+Code.renderContent = function() {
+  var content = document.getElementById('content_' + Code.selected);
+  // Initialize the pane.
+  if (content.id == 'content_xml') {
+    var xmlTextarea = document.getElementById('content_xml');
+    var xmlDom = Blockly.Xml.workspaceToDom(Code.workspace);
+    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+    xmlTextarea.value = xmlText;
+    xmlTextarea.focus();
+  } else if (content.id == 'content_javascript') {
+    Code.attemptCodeGeneration(Blockly.JavaScript);
+  } else if (content.id == 'content_python') {
+    Code.attemptCodeGeneration(Blockly.Python);
+  } else if (content.id == 'content_php') {
+    Code.attemptCodeGeneration(Blockly.PHP);
+  } else if (content.id == 'content_dart') {
+    Code.attemptCodeGeneration(Blockly.Dart);
+  } else if (content.id == 'content_lua') {
+    Code.attemptCodeGeneration(Blockly.Lua);
+  }
+  if (typeof PR == 'object') {
+    PR.prettyPrint();
+  }
+};
+
+/**
+ * Attempt to generate the code and display it in the UI, pretty printed.
+ * @param generator {!Blockly.Generator} The generator to use.
+ */
+Code.attemptCodeGeneration = function(generator) {
+  var content = document.getElementById('content_' + Code.selected);
+  content.textContent = '';
+  if (Code.checkAllGeneratorFunctionsDefined(generator)) {
+    var code = generator.workspaceToCode(Code.workspace);
+    content.textContent = code;
+    // Remove the 'prettyprinted' class, so that Prettify will recalculate.
+    content.className = content.className.replace('prettyprinted', '');
+  }
+};
+
+/**
+ * Check whether all blocks in use have generator functions.
+ * @param generator {!Blockly.Generator} The generator to use.
+ */
+Code.checkAllGeneratorFunctionsDefined = function(generator) {
+  var blocks = Code.workspace.getAllBlocks(false);
+  var missingBlockGenerators = [];
+  for (var i = 0; i < blocks.length; i++) {
+    var blockType = blocks[i].type;
+    if (!generator[blockType]) {
+      if (missingBlockGenerators.indexOf(blockType) == -1) {
+        missingBlockGenerators.push(blockType);
+      }
+    }
+  }
+
+  var valid = missingBlockGenerators.length == 0;
+  if (!valid) {
+    var msg = 'The generator code for the following blocks not specified for ' +
+        generator.name_ + ':\n - ' + missingBlockGenerators.join('\n - ');
+    Blockly.alert(msg);  // Assuming synchronous. No callback.
+  }
+  return valid;
+};
+
 /**
  * Initialize Blockly.  Called on page load.
  */
@@ -249,21 +331,24 @@ Code.init = function() {
     BlocklyStorage.backupOnUnload(Code.workspace);
   }
 
-  Code.bindClick('trashButton',
-      function() {Code.discard(); Code.renderContent();});
-  Code.bindClick('runButton', Code.runJS);
-  // Disable the link button if page isn't backed by App Engine storage.
-  var linkButton = document.getElementById('linkButton');
-  if ('BlocklyStorage' in window) {
-    BlocklyStorage['HTTPREQUEST_ERROR'] = MSG['httpRequestError'];
-    BlocklyStorage['LINK_ALERT'] = MSG['linkAlert'];
-    BlocklyStorage['HASH_ERROR'] = MSG['hashError'];
-    BlocklyStorage['XML_ERROR'] = MSG['xmlError'];
-    Code.bindClick(linkButton,
-        function() {BlocklyStorage.link(Code.workspace);});
-  } else if (linkButton) {
-    linkButton.className = 'disabled';
-  }
+  // Code.tabClick(Code.selected);
+  // Code.renderContent(); // or codeShow execute tab click / focus
+
+  // Code.bindClick('trashButton',
+  //     function() {Code.discard(); /*Code.renderContent();*/});
+  // Code.bindClick('runButton', Code.runJS);
+  // // Disable the link button if page isn't backed by App Engine storage.
+  // var linkButton = document.getElementById('linkButton');
+  // if ('BlocklyStorage' in window) {
+  //   BlocklyStorage['HTTPREQUEST_ERROR'] = MSG['httpRequestError'];
+  //   BlocklyStorage['LINK_ALERT'] = MSG['linkAlert'];
+  //   BlocklyStorage['HASH_ERROR'] = MSG['hashError'];
+  //   BlocklyStorage['XML_ERROR'] = MSG['xmlError'];
+  //   Code.bindClick(linkButton,
+  //       function() {BlocklyStorage.link(Code.workspace);});
+  // } else if (linkButton) {
+  //   linkButton.className = 'disabled';
+  // }
 
 };
 /**
@@ -300,15 +385,16 @@ Code.initLanguage = function() {
     languageMenu.options.add(option);
   }
   languageMenu.addEventListener('change', Code.changeLanguage, true);
+  M.FormSelect.init(languageMenu, {});
 
   // Inject language strings.
   document.title += ' ' + MSG['title'];
   document.getElementById('title').textContent = MSG['title'];
-  document.getElementById('blocksTab').textContent = MSG['blocks'];
+  // document.getElementById('blocklyDiv').textContent = MSG['blocks'];
 
-  document.getElementById('linkButton').title = MSG['linkTooltip'];
-  document.getElementById('runButton').title = MSG['runTooltip'];
-  document.getElementById('trashButton').title = MSG['trashTooltip'];
+  // document.getElementById('linkButton').title = MSG['linkTooltip'];
+  // document.getElementById('runButton').title = MSG['runTooltip'];
+  // document.getElementById('trashButton').title = MSG['trashTooltip'];
 };
 
 /**
@@ -347,8 +433,8 @@ Code.discard = function() {
 };
 
 // Load the Code demo's language strings.
-document.write('<script src="msg/' + Code.LANG + '.js"></script>\n');
+document.write('<script src="js/msg/' + Code.LANG + '.js"></script>\n');
 // Load Blockly's language strings.
-document.write('<script src="../../msg/js/' + Code.LANG + '.js"></script>\n');
+document.write('<script src="js/msg/js/' + Code.LANG + '.js"></script>\n');
 
 window.addEventListener('load', Code.init);
