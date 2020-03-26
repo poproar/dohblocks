@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // var selects = document.querySelectorAll('select');
   // var mFormSelect = M.FormSelect.init(selects, {});
+  var code_lang = document.getElementById('code_lang');
+  M.FormSelect.init(code_lang, {});
 
   var modals = document.querySelectorAll('.modal');
   var mModals = M.Modal.init(modals, {});
